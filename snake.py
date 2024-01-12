@@ -1,3 +1,4 @@
+#i see you robert
 #cel mai nou/ bun cod: culori sarpe + top score + restart
 # imports of different modules
 import pygame
