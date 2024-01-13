@@ -1,5 +1,4 @@
-#i see you roberttt
-#cel mai nou/ bun cod: culori sarpe + top score + restart
+#cel mai nou/ bun cod: culori sarpe + top score + buton restart
 # imports of different modules
 import pygame
 import sys
