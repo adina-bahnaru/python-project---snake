@@ -1,10 +1,12 @@
 # python-project---snake
 
 snake game with changing colors, ocean backround, restart button and highest score history 
-pentru buton in pygame : https://www.geeksforgeeks.org/how-to-draw-rectangle-in-pygame/ 
-https://www.pygame.org/docs/ref/draw.html 
-https://www.geeksforgeeks.org/how-to-create-buttons-in-a-game-using-pygame/ 
-https://chat.openai.com/share/8a7a05e3-3fc0-4323-8fba-1792ca50341d 
+
+pentru buton in pygame: 
+- https://www.geeksforgeeks.org/how-to-draw-rectangle-in-pygame/ 
+- https://www.pygame.org/docs/ref/draw.html 
+- https://www.geeksforgeeks.org/how-to-create-buttons-in-a-game-using-pygame/ 
+- https://chat.openai.com/share/8a7a05e3-3fc0-4323-8fba-1792ca50341d 
 
 pt schimbare de backround: 
 - https://www.pygame.org/docs/ref/color_list.html 
