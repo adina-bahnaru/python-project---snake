@@ -1,4 +1,4 @@
-#cel mai nou/ bun cod: culori sarpe + top score + buton restart
+#cel mai nou/ bun cod: culori sarpe + top score + background + restart
 # imports of different modules
 import pygame
 import sys
@@ -9,23 +9,20 @@ pygame.init()
 # Play Surface
 window_width = 720
 window_length = 460
-playSurface = pygame.display.set_mode((window_width, window_length)) # To set the console window where game will run, the set_mode expects a tupple having dimensions of the console
-pygame.display.set_caption('!!! SNAKE GAME !!!') # To set the Upper heading of the game console window
+playSurface = pygame.display.set_mode((window_width, window_length)) 
+pygame.display.set_caption('!!! SNAKE GAME !!!') 
 
 
 #Colors
-# The color method expects three parameters r,g,b combination to give the color
 red = pygame.Color(255, 0 ,0) #red color-gameover
 snake_color = pygame.Color(0, 255, 0) #green-snake
 white = pygame.Color(255, 255, 255) #white-score
 black = pygame.Color(0, 0, 0) #black-screen
 dark_red = pygame.Color(128, 0, 0) #food color
-#brown = pygame.Color(165, 42, 42) #brown-food
 
 # fps controller
 fpsController = pygame.time.Clock()
 
-# important varibles for the gameover
 snakePos = [100, 50] #initial coordinate of the snake head
 snakeBody = [[100, 50], [90, 50], [80, 50]] #snake snakeBody
 
@@ -54,17 +51,13 @@ def draw_button():
 
 # Game Over function
 def gameOver():
-    myFont = pygame.font.SysFont('monaco', 72) #choose font name and size
-    GOsurf = myFont.render(' GAME OVER !!!', True, red) # this is the surface where game over will display having 3 args : the message, antialiasing,and Color
+    myFont = pygame.font.SysFont('monaco', 72) 
+    GOsurf = myFont.render(' GAME OVER !!!', True, red) #this is the surface where game over will display having 3 args : the message, antialiasing,and Color
     GOrect = GOsurf.get_rect() #to get rect coordinates of the game over text surface
     GOrect.midtop = (350, 15)
     playSurface.blit(GOsurf, GOrect) # bind the gameover text to the main surface
     showScore(0)
-    pygame.display.flip() # to set the fps
-        
-    #time.sleep(2)
-    #pygame.quit() # exit game window
-    #sys.exit() # exit cmd console
+    pygame.display.flip() # to set the fps; updates the surface
 
 ocean_color=pygame.Color('mediumaquamarine') 
 
@@ -84,17 +77,18 @@ def draw_ocean():
 game_over_flag = False
 
 def showScore(choice=1):
-    sFont = pygame.font.SysFont('monaco', 42) #choose font name and size
-    Ssurf = sFont.render('SCORE : {0}'.format(score), True, black) # this is the surface where game over will display having 3 args : the message, antialiasing,and Color
-    Srect = Ssurf.get_rect() #to get rect coordinates of the game over text surface
+    sFont = pygame.font.SysFont('monaco', 42) 
+    Ssurf = sFont.render('SCORE : {0}'.format(score), True, black)
+    Srect = Ssurf.get_rect() 
     if choice == 1:
         Srect.midtop = (80, 10)
     else:
         Srect.midtop = (360, 120)
 
-    playSurface.blit(Ssurf, Srect) # bind the gameover text to the main surface
+    playSurface.blit(Ssurf, Srect) #used to display the score
     pygame.display.flip() # to set the fps
 
+# functions for getting the highest score
 def update_score(nscore):
     score = max_score()
 
@@ -106,8 +100,8 @@ def update_score(nscore):
 
 def max_score():
     with open('highest_score.txt', 'r') as f:
-        lines = f.readlines()
-        score = lines[0].strip()
+        lines = f.readlines() #lines is a list
+        score = lines[0].strip() #score = the content of the first line
     return score
 
 # Main Logic Of The GAME
@@ -127,7 +121,7 @@ while True:
             if event.key == pygame.K_DOWN or event.key == ord('s'): # Down Move
                 changeTo = 'DOWN'
             if event.key == pygame.K_ESCAPE:
-                pygame.event.post(pygame.event.Event(pygame.QUIT))  # post function first creates a event and inside it we emit a quit event
+                pygame.event.post(pygame.event.Event(pygame.QUIT)) 
 
     # validation of direction
     if  game_over_flag==False and not (snakePos[0] > 710 or snakePos[0] < 0) and not (snakePos[1] > 450 or snakePos[1] < 0):            
@@ -151,6 +145,7 @@ while True:
         snakePos[1] += 10
 
     # Snake Body Mechanism
+    # if fruits and snakes collide then scores will be incremented by 10    
     snakeBody.insert(0, list(snakePos))
     if snakePos[0] == foodPos[0] and snakePos[1] == foodPos[1]:
         score += 1
@@ -163,7 +158,8 @@ while True:
     
     #Food spawn
     if foodSpawn == False:
-        foodPos = [random.randrange(1,72)*10,random.randrange(1,46)*10]
+        foodPos = [random.randrange(1, (window_width//10)) * 10, 
+                   random.randrange(1,(window_length//10)) * 10]
     foodSpawn = True
 
     playSurface.fill(('cadetblue2'))
@@ -183,7 +179,8 @@ while True:
             if button_rect.collidepoint(mouse_x, mouse_y):
                 snakePos = [100, 50]
                 snakeBody = [[100, 50], [90, 50], [80, 50]]
-                foodPos = [random.randrange(1, 72) * 10, random.randrange(1, 46) * 10]
+                foodPos = [random.randrange(1, (window_width//10)) * 10, 
+                           random.randrange(1,(window_length//10)) * 10]
                 foodSpawn = True
                 direction = 'RIGHT'
                 changeTo = direction
@@ -225,7 +222,8 @@ while True:
             if button_rect.collidepoint(mouse_x, mouse_y) and game_over_flag:
                 snakePos = [100, 50]
                 snakeBody = [[100, 50], [90, 50], [80, 50]]
-                foodPos = [random.randrange(1, 72) * 10, random.randrange(1, 46) * 10]
+                foodPos = [random.randrange(1, (window_width//10)) * 10, 
+                           random.randrange(1,(window_length//10)) * 10]
                 foodSpawn = True
                 direction = 'RIGHT'
                 changeTo = direction
@@ -235,10 +233,9 @@ while True:
                 game_over_flag = False
                               
     showScore()
-    # FPS CONTROL
     pygame.display.update()
 
-    if score == initscore+3:
-        snake_speed+=5
+    if score == initscore + 3:
+        snake_speed += 5
         initscore = score
-    fpsController.tick(snake_speed)
+    fpsController.tick(snake_speed) # FPS CONTROL
